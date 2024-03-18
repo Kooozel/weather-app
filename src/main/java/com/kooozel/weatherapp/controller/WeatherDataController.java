@@ -2,8 +2,10 @@ package com.kooozel.weatherapp.controller;
 
 import java.time.LocalDateTime;
 
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -23,16 +25,22 @@ public class WeatherDataController {
     public ResponseEntity<Void> saveWeatherData(@RequestParam String stationId, @RequestParam double temperature,
             @RequestParam double humidity, @RequestParam double windSpeed) {
 
-    var weatherData = WeatherData.builder()
-            .stationId(stationId)
-            .dateTime(LocalDateTime.now())
-            .temperature(temperature)
-            .humidity(humidity)
-            .windSpeed(windSpeed)
-            .build();
+        var weatherData = WeatherData.builder()
+                .stationId(stationId)
+                .dateTime(LocalDateTime.now())
+                .temperature(temperature)
+                .humidity(humidity)
+                .windSpeed(windSpeed)
+                .build();
         weatherDataService.saveWeatherData(weatherData);
-        return ResponseEntity.ok().
+        return ResponseEntity.ok()
+                .build();
+    }
 
-    build();
-}
+    @GetMapping("/export-excel")
+    public ResponseEntity<byte[]> exportWeatherDataToExcel() {
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=weather-data.xlsx")
+                .body(weatherDataService.exportWeatherDataToExcel());
+    }
 }
