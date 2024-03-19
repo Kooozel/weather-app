@@ -6,9 +6,11 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import lombok.Builder;
+import lombok.Getter;
 
 @Document(collection = "weatherData")
 @Builder
+@Getter
 public class WeatherData {
     @Id
     private String id;
