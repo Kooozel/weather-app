@@ -38,9 +38,10 @@ public class WeatherDataController {
     }
 
     @GetMapping("/export-excel")
-    public ResponseEntity<byte[]> exportWeatherDataToExcel() {
+    public ResponseEntity<byte[]> exportWeatherDataToExcel(@RequestParam(required = false) String stationId,
+            @RequestParam(required = false) LocalDateTime from, @RequestParam(required = false) LocalDateTime to) {
         return ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=weather-data.xlsx")
-                .body(weatherDataService.exportWeatherDataToExcel());
+                .body(weatherDataService.exportWeatherDataToExcel(stationId, from, to));
     }
 }
