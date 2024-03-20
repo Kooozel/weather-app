@@ -9,3 +9,13 @@ services:
     container_name: weather-mongo
     ports:
       - "27017:27017"
+  server:
+    image: kozeltech/weather-app
+    restart: always
+    container_name: weather-server
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mongo
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
