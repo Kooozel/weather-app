@@ -1,4 +1,4 @@
-package com.kooozel.weatherapp;
+package com.kozeltech.weatherapp;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

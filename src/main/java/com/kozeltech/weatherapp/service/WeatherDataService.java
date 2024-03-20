@@ -1,4 +1,4 @@
-package com.kooozel.weatherapp.service;
+package com.kozeltech.weatherapp.service;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -6,12 +6,13 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.kooozel.weatherapp.model.ExcelEntry;
-import com.kooozel.weatherapp.model.ExcelSheetProperties;
-import com.kooozel.weatherapp.model.WeatherData;
-import com.kooozel.weatherapp.repository.WeatherDataDAO;
-import com.kooozel.weatherapp.repository.WeatherDataRepository;
-import com.kooozel.weatherapp.service.export.ExcelExporter;
+import com.kozeltech.weatherapp.utils.WeatherDataUtils;
+import com.kozeltech.weatherapp.model.ExcelEntry;
+import com.kozeltech.weatherapp.model.ExcelSheetProperties;
+import com.kozeltech.weatherapp.model.WeatherData;
+import com.kozeltech.weatherapp.repository.WeatherDataDAO;
+import com.kozeltech.weatherapp.repository.WeatherDataRepository;
+import com.kozeltech.weatherapp.service.export.ExcelExporter;
 
 import lombok.RequiredArgsConstructor;
 
@@ -62,26 +63,6 @@ public class WeatherDataService {
     public double getTemperaturePrediction(String stationId) {
         var historicalData = weatherDataDAO.getTemperatureData(stationId);
 
-        return historicalData[historicalData.length - 1] + calculateDelta(historicalData);
-    }
-
-    private double calculateDelta(double[] historicalData) {
-        var weights = new double[] {0.5, 0.3, 0.2};
-        var weightedAverage = 0.0;
-        for (int i = 0; i < historicalData.length - 1 ; i++) {
-            var diff = historicalData[i] - historicalData[i + 1];
-            var weight = 0.0;
-            if (i < 20) {
-                weight = weights[0];
-            } else if (i < 40) {
-                weight = weights[1];
-            } else {
-                weight = weights[2];
-            }
-
-            weightedAverage += diff * weight;
-        }
-
-        return Math.round((weightedAverage / historicalData.length)* 10.0) / 10.0;
+        return historicalData[historicalData.length - 1] + WeatherDataUtils.calculateDelta(historicalData);
     }
 }

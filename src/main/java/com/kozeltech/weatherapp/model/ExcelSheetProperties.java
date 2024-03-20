@@ -1,4 +1,4 @@
-package com.kooozel.weatherapp.model;
+package com.kozeltech.weatherapp.model;
 
 import java.util.List;
 

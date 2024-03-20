@@ -1,4 +1,4 @@
-package com.kooozel.weatherapp.repository;
+package com.kozeltech.weatherapp.repository;
 
 import static org.springframework.data.mongodb.core.query.Criteria.where;
 
@@ -10,7 +10,7 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 
-import com.kooozel.weatherapp.model.WeatherData;
+import com.kozeltech.weatherapp.model.WeatherData;
 
 import lombok.RequiredArgsConstructor;
 
