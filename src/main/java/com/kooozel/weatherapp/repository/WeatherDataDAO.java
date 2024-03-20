@@ -5,6 +5,7 @@ import static org.springframework.data.mongodb.core.query.Criteria.where;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
@@ -30,5 +31,14 @@ public class WeatherDataDAO {
         }
 
         return mongoTemplate.find(query, WeatherData.class);
+    }
+
+    public double[] getTemperatureData(String stationId) {
+        var query = new Query();
+        query.addCriteria(where("stationId").is(stationId));
+        query.fields().include("temperature");
+        query.with(Sort.by(Sort.Direction.DESC, "dateTime")).limit(100);
+        var weatherData = mongoTemplate.find(query, WeatherData.class);
+        return weatherData.stream().mapToDouble(WeatherData::getTemperature).toArray();
     }
 }

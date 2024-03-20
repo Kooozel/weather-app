@@ -44,4 +44,18 @@ public class WeatherDataController {
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=weather-data.xlsx")
                 .body(weatherDataService.exportWeatherDataToExcel(stationId, from, to));
     }
+
+    @GetMapping("/create-mock-data")
+    public ResponseEntity<Void> createMockData() {
+        weatherDataService.createMockData();
+        return ResponseEntity.ok()
+                .build();
+    }
+
+    @GetMapping("/temperature-prediction")
+    public ResponseEntity<String> getTemperaturePrediction(@RequestParam(defaultValue = "station-1") String stationId) {
+        var predictedTemperature = weatherDataService.getTemperaturePrediction(stationId);
+        return ResponseEntity.ok()
+                .body("Temperature prediction for " + stationId + " is " + predictedTemperature);
+    }
 }
