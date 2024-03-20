@@ -16,7 +16,7 @@ public class WeatherData {
     private String id;
     private String stationId;
     private LocalDateTime dateTime;
-    private double temperature; // in Celsius
-    private double humidity; // in percentage
-    private double windSpeed; // in km/h
+    private Double temperature; // in Celsius
+    private Double humidity; // in percentage
+    private Double windSpeed; // in km/h
 }
