@@ -4,20 +4,23 @@ import java.time.LocalDateTime;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.kooozel.weatherapp.model.WeatherData;
 import com.kooozel.weatherapp.service.WeatherDataService;
+import com.kooozel.weatherapp.service.WeatherDataSimulation;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
-@Controller
+@RestController
 @RequestMapping("/api/v1/weather-data")
 @RequiredArgsConstructor
+@Slf4j
 public class WeatherDataController {
     private final WeatherDataService weatherDataService;
 
@@ -57,5 +60,12 @@ public class WeatherDataController {
         var predictedTemperature = weatherDataService.getTemperaturePrediction(stationId);
         return ResponseEntity.ok()
                 .body("Temperature prediction for " + stationId + " is " + predictedTemperature);
+    }
+
+    @GetMapping("/simulate")
+    public ResponseEntity<Void> simulate(@RequestParam int numberOfStations) {
+        WeatherDataSimulation.manageSimulation(numberOfStations);
+        return ResponseEntity.ok()
+                .build();
     }
 }
