@@ -1,4 +1,4 @@
-package com.kooozel.weatherapp.service;
+package com.kozeltech.weatherapp.service;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -6,13 +6,13 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.kooozel.weatherapp.utils.WeatherDataUtils;
-import com.kooozel.weatherapp.model.ExcelEntry;
-import com.kooozel.weatherapp.model.ExcelSheetProperties;
-import com.kooozel.weatherapp.model.WeatherData;
-import com.kooozel.weatherapp.repository.WeatherDataDAO;
-import com.kooozel.weatherapp.repository.WeatherDataRepository;
-import com.kooozel.weatherapp.service.export.ExcelExporter;
+import com.kozeltech.weatherapp.utils.WeatherDataUtils;
+import com.kozeltech.weatherapp.model.ExcelEntry;
+import com.kozeltech.weatherapp.model.ExcelSheetProperties;
+import com.kozeltech.weatherapp.model.WeatherData;
+import com.kozeltech.weatherapp.repository.WeatherDataDAO;
+import com.kozeltech.weatherapp.repository.WeatherDataRepository;
+import com.kozeltech.weatherapp.service.export.ExcelExporter;
 
 import lombok.RequiredArgsConstructor;
 

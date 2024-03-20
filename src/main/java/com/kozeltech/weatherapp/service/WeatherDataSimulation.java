@@ -1,4 +1,4 @@
-package com.kooozel.weatherapp.service;
+package com.kozeltech.weatherapp.service;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -10,7 +10,7 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
-import com.kooozel.weatherapp.utils.WeatherDataUtils;
+import com.kozeltech.weatherapp.utils.WeatherDataUtils;
 
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;

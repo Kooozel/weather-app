@@ -1,4 +1,4 @@
-package com.kooozel.weatherapp.controller;
+package com.kozeltech.weatherapp.controller;
 
 import java.time.LocalDateTime;
 
@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.kooozel.weatherapp.model.WeatherData;
-import com.kooozel.weatherapp.service.WeatherDataService;
-import com.kooozel.weatherapp.service.WeatherDataSimulation;
+import com.kozeltech.weatherapp.model.WeatherData;
+import com.kozeltech.weatherapp.service.WeatherDataService;
+import com.kozeltech.weatherapp.service.WeatherDataSimulation;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

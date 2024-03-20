@@ -1,4 +1,4 @@
-package com.kooozel.weatherapp.utils;
+package com.kozeltech.weatherapp.utils;
 
 import lombok.experimental.UtilityClass;
 

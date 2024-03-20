@@ -1,10 +1,9 @@
-package com.kooozel.weatherapp.service.export;
+package com.kozeltech.weatherapp.service.export;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.List;
 
-import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.FillPatternType;
 import org.apache.poi.ss.usermodel.IndexedColors;
 import org.apache.poi.xssf.usermodel.XSSFCellStyle;
@@ -12,7 +11,7 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.stereotype.Service;
 
-import com.kooozel.weatherapp.model.ExcelSheetProperties;
+import com.kozeltech.weatherapp.model.ExcelSheetProperties;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -43,7 +42,7 @@ public class ExcelExporter {
         int rowCount = 0;
 
         if (excelSheetProperties.getHeaderRow() != null) {
-            createRow(excelSheetProperties.getHeaderRow().getColumns(), sheet, rowCount++, headerStyle);;
+            createRow(excelSheetProperties.getHeaderRow().getColumns(), sheet, rowCount++, headerStyle);
         }
 
         if (excelSheetProperties.getDataRows() != null) {
