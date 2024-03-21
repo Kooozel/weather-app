@@ -14,6 +14,8 @@ import com.kozeltech.weatherapp.model.WeatherData;
 import com.kozeltech.weatherapp.service.WeatherDataService;
 import com.kozeltech.weatherapp.service.WeatherDataSimulation;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -24,9 +26,12 @@ import lombok.extern.slf4j.Slf4j;
 public class WeatherDataController {
     private final WeatherDataService weatherDataService;
 
+    @Operation(summary = "Save weather data")
     @PostMapping("/save")
-    public ResponseEntity<Void> saveWeatherData(@RequestParam String stationId, @RequestParam double temperature,
-            @RequestParam double humidity, @RequestParam double windSpeed) {
+    public ResponseEntity<Void> saveWeatherData(@Parameter(description = "Id of the weather station") @RequestParam String stationId,
+            @Parameter(description = "Temperature in Celsius") @RequestParam double temperature,
+            @Parameter(description = "Humidity in percents") @RequestParam double humidity,
+            @Parameter(description = "Wind speed in km/h") @RequestParam double windSpeed) {
 
         var weatherData = WeatherData.builder()
                 .stationId(stationId)
@@ -40,14 +45,18 @@ public class WeatherDataController {
                 .build();
     }
 
+    @Operation(summary = "Export weather data to Excel")
     @GetMapping("/export-excel")
-    public ResponseEntity<byte[]> exportWeatherDataToExcel(@RequestParam(required = false) String stationId,
-            @RequestParam(required = false) LocalDateTime from, @RequestParam(required = false) LocalDateTime to) {
+    public ResponseEntity<byte[]> exportWeatherDataToExcel(
+            @Parameter(description = "Id of the weather station", allowEmptyValue = true) @RequestParam(required = false) String stationId,
+            @Parameter(description = "Date from", allowEmptyValue = true) @RequestParam(required = false) LocalDateTime from,
+            @Parameter(description = "Date to", allowEmptyValue = true) @RequestParam(required = false) LocalDateTime to) {
         return ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=weather-data.xlsx")
                 .body(weatherDataService.exportWeatherDataToExcel(stationId, from, to));
     }
 
+    @Operation(summary = "Wipes out data and create mock data")
     @GetMapping("/create-mock-data")
     public ResponseEntity<Void> createMockData() {
         weatherDataService.createMockData();
@@ -55,15 +64,19 @@ public class WeatherDataController {
                 .build();
     }
 
+    @Operation(summary = "Get temperature prediction")
     @GetMapping("/temperature-prediction")
-    public ResponseEntity<String> getTemperaturePrediction(@RequestParam(defaultValue = "station-1") String stationId) {
+    public ResponseEntity<String> getTemperaturePrediction(
+            @Parameter(description = "Id of the weather station") @RequestParam(defaultValue = "station-1") String stationId) {
         var predictedTemperature = weatherDataService.getTemperaturePrediction(stationId);
         return ResponseEntity.ok()
                 .body("Temperature prediction for " + stationId + " is " + predictedTemperature);
     }
 
+    @Operation(summary = "Simulate weather data, for testing purposes. First request will start simulation, second will stop simulation")
     @GetMapping("/simulate")
-    public ResponseEntity<Void> simulate(@RequestParam int numberOfStations) {
+    public ResponseEntity<Void> simulate(
+            @Parameter(description = "Number of weather station to simulate") @RequestParam int numberOfStations) {
         WeatherDataSimulation.manageSimulation(numberOfStations);
         return ResponseEntity.ok()
                 .build();
