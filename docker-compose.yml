@@ -10,7 +10,7 @@ services:
     ports:
       - "27017:27017"
   server:
-    image: kozeltech/weather-app
+    image: kooozel/weather-app:latest
     restart: always
     container_name: weather-server
     ports:
